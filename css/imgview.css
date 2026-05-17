@@ -29,9 +29,23 @@ h2 {
   text-align: center;
 }
 
-.tooltitle {
-  color: #18d551;
-  font-size: 18px;
+.logo {
+  text-decoration: none;
+}
+
+h3 {
+  color: #ad11f0;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+  margin-top: 3%;
+  padding: 0;
+  text-align: center;
+}
+
+h4 {
+  color: #929292;
+  font-size: 12px;
   font-weight: 600;
   margin: 0;
   margin-bottom: 8px;
@@ -39,54 +53,51 @@ h2 {
   text-align: center;
 }
 
-table {
-  border: 1px solid rgb(0, 0, 0);
-  border-collapse: collapse;
-  margin: 0px auto;
+.topbar {
+  display: block;
+  width: 98%;
+  max-width: 600px;
+  margin: auto;
 }
 
-.tabletooltitle {
-  color: #18d551;
-  background-color: #000000;
-  border: 1px solid rgb(0, 0, 0);
-  padding: 0px 8px;
-  font-size: 16px;
+#viewButton {
+  float: right;
+  border-radius: 0px;
+  color:white;
+  background-color: rgb(40, 40, 40);
+  border: solid 4px rgb(14, 14, 14);
+  cursor: pointer;
 }
 
-.toolitem {
-  background-color: #18d551;
-  border: 1px solid rgb(0, 0, 0);
-  padding: 0px 8px;
-  font-size: 16px;
+label {
+  float: left;
+  color:white;
+  background-color: rgb(40, 40, 40);
+  border: solid 4px rgb(14, 14, 14);
+  cursor: pointer;
+  padding: 2px;
 }
 
-.devtitle {
-  color: #18a3d5;
-  font-size: 18px;
-  font-weight: 600;
-  margin: 10px 0;
-  padding: 0;
+input {
+  display: none;
+}
+
+canvas {
+  display: block;
+  width: 98%;
+  max-width: 600px;
+  min-height: 20%;
+  margin: auto;
+  margin-top: 2%;
+}
+
+.imager {
   text-align: center;
+  color:gray;
 }
 
-.tabledevtitle {
-  color: #18a3d5;
-  background-color: #000000;
-  border: 1px solid rgb(0, 0, 0);
-  padding: 0px 8px;
-  font-size: 16px;
-}
-
-.devitem {
-  background-color: #18a3d5;
-  border: 1px solid rgb(0, 0, 0);
-  padding: 0px 8px;
-  font-size: 16px;
-}
-
-.toollink {
-  color:rgb(180, 240, 255);
-  text-decoration: none;
+span {
+  color:rgb(30, 228, 12);
   font-weight: 900;
 }
 
