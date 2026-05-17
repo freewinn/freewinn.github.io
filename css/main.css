@@ -50,14 +50,14 @@ table {
   background-color: #000000;
   border: 1px solid rgb(0, 0, 0);
   padding: 0px 8px;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .toolitem {
   background-color: #18d551;
   border: 1px solid rgb(0, 0, 0);
   padding: 0px 8px;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .devtitle {
@@ -74,14 +74,14 @@ table {
   background-color: #000000;
   border: 1px solid rgb(0, 0, 0);
   padding: 0px 8px;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .devitem {
   background-color: #18a3d5;
   border: 1px solid rgb(0, 0, 0);
   padding: 0px 8px;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .toollink {
