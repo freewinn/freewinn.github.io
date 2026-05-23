@@ -60,13 +60,13 @@ h4 {
   margin: auto;
 }
 
-#viewButton {
+#cSButton {
   float: right;
   border-radius: 0px;
-  color:white;
+  color:gray;
   background-color: rgb(40, 40, 40);
   border: solid 4px rgb(14, 14, 14);
-  cursor: pointer;
+  cursor: no-drop;
 }
 
 label {
@@ -82,13 +82,54 @@ input {
   display: none;
 }
 
-canvas {
+.imageholder {
+  position: relative;
   display: block;
   width: 98%;
   max-width: 600px;
   min-height: 20%;
   margin: auto;
   margin-top: 2%;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+  border: solid 2px gray;
+}
+
+#filename {
+  position: absolute;
+  color: white;
+  text-align: center;
+  bottom: -2px;
+  font-size: 20px;
+  width: 100%;
+}
+
+#formatlogo {
+  position: absolute;
+  bottom: 53px;
+}
+
+#formatlogo {
+  position: relative;
+  margin: 0px auto;
+  width: 50px;
+}
+
+.formatdata {
+  border: 1px solid gray;
+  color: white;
+  border-collapse: separate;
+  padding: 10px;
+  margin: 0px auto;
+  width: 75%;
+  max-width: 500px;
+}
+
+.formatborder {
+  border-bottom: 1px solid gray;
 }
 
 .imager {
@@ -135,4 +176,8 @@ b {
   color: gray;
   text-align: center;
   font-weight: 300;
+}
+
+.hide {
+  opacity: 0;
 }
