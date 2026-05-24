@@ -9,10 +9,10 @@ const fileInput = document.getElementById('imageUploader');
 const canvas = document.getElementById('image');
 const ctx = canvas.getContext('2d');
 
-const validformats = ["PNG", "JPEG", "GIF", "WEBP", "BMP", "ICO"]
+const validformats = ["PNG", "JPG", "GIF", "WEBP", "BMP", "ICO"]
 const formatcolors = {
     "PNG": "#164a6e",
-    "JPEG": "#444d52",
+    "JPG": "#444d52",
     "GIF": "#7f4c1e",
     "WEBP": "#396311",
     "BMP": "#943f40",
@@ -20,7 +20,7 @@ const formatcolors = {
 }
 const formatlogos = {
     "PNG": "/content/IF_PNG_S.png",
-    "JPEG": "/content/IF_JPEG_S.png",
+    "JPG": "/content/IF_JPEG_S.png",
     "GIF": "/content/IF_GIF_S.png",
     "WEBP": "/content/IF_WEBP_S.png",
     "BMP": "/content/IF_BMP_S.png",
@@ -28,7 +28,7 @@ const formatlogos = {
 }
 const compmethods = {
     "PNG": "Lossless (DEFLATE)",
-    "JPEG": "Lossy (JPEG Compression)",
+    "JPG": "Lossy (JPEG Compression)",
     "GIF": "Lossless (LZW)",
     "WEBP": "Unknown (Lossy or Lossless)",
     "BMP": "Lossless (RLE)",
@@ -67,6 +67,7 @@ fileInput.addEventListener('change', () => {
 
         // Load Format Info
         const fileformat = fileInput.value.split("\\")[fileInput.value.split("\\").length-1].split(".")[fileInput.value.split("\\")[fileInput.value.split("\\").length-1].split(".").length-1].toUpperCase()
+        console.log(fileformat)
         if (validformats.includes(fileformat)) {
             updateformatcolor(fileformat)
             updateformatlogo(fileformat)
