@@ -4,12 +4,12 @@
 
 
 // Variables
-
 const fileInput = document.getElementById('imageUploader');
 const canvas = document.getElementById('image');
 const ctx = canvas.getContext('2d');
 
-const validformats = ["PNG", "JPG", "GIF", "WEBP", "BMP", "ICO"]
+const validformats = ["PNG", "JPG", "GIF", "WEBP", "BMP", "ICO", "HEIC"];
+const browserformats = ["PNG", "JPG", "GIF", "WEBP", "BMP", "ICO"];
 const formatcolors = {
     "PNG": "#164a6e",
     "JPG": "#444d52",
@@ -17,7 +17,8 @@ const formatcolors = {
     "WEBP": "#396311",
     "BMP": "#943f40",
     "ICO": "#4e2b9d",
-}
+    "HEIC": "#782982",
+};
 const formatlogos = {
     "PNG": "/content/IF_PNG_S.png",
     "JPG": "/content/IF_JPEG_S.png",
@@ -25,7 +26,8 @@ const formatlogos = {
     "WEBP": "/content/IF_WEBP_S.png",
     "BMP": "/content/IF_BMP_S.png",
     "ICO": "/content/IF_ICO_S.png",
-}
+    "HEIC": "/content/IF_HEIC_S.png",
+};
 const compmethods = {
     "PNG": "Lossless (DEFLATE)",
     "JPG": "Lossy (JPEG Compression)",
@@ -33,77 +35,157 @@ const compmethods = {
     "WEBP": "Unknown (Lossy or Lossless)",
     "BMP": "Lossless (RLE)",
     "ICO": "Lossless (BMP or PNG)",
-}
+    "HEIC": "Unknown (Lossy or Lossless)",
+};
 
 const formatborders = document.getElementsByClassName("formatborder")
 
 // Functions
 
-function updateformatcolor(format) {
-    var fc = formatcolors[format]
+function statusbar(message, per, bcolor = "green", fcolor = "rgb(200, 200, 200)") {
+    canvas.width = 800;
+    canvas.height = 400;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = bcolor;
+    ctx.fillRect(0,0, canvas.width*per,22);
+    ctx.font = "18px Monospace";
+    ctx.fillStyle = fcolor;
+    ctx.fillText(message, 5, 16);
+}
 
-    for (let i = 0; i < formatborders.length; i++) {
-        formatborders[i].style.borderColor = fc;
+function updateformatcolor(format) {
+    if (format) {
+        var fc = formatcolors[format]
+
+        for (let i = 0; i < formatborders.length; i++) {
+            formatborders[i].style.borderColor = fc;
+        }
+        document.getElementsByClassName("formatdata")[0].style.borderColor = fc;
+        canvas.style.borderColor = fc;
+    } else {
+        for (let i = 0; i < formatborders.length; i++) {
+            formatborders[i].style.borderColor = "gray";
+        }
+        document.getElementsByClassName("formatdata")[0].style.borderColor = "gray";
+        canvas.style.borderColor = "gray";
     }
-    document.getElementsByClassName("formatdata")[0].style.borderColor = fc;
-    canvas.style.borderColor = fc;
 }
 
 function updateformatlogo(format) {
-    var fl = formatlogos[format]
+    if (format) {
+        var fl = formatlogos[format]
 
-    document.getElementById("formatlogo").src = fl;
+        document.getElementById("formatlogo").src = fl;
+    } else {
+        document.getElementById("formatlogo").src = "";
+    }
 }
 
 // Events
-
 fileInput.addEventListener('change', () => {
+    statusbar("Uploading Image", 0.2);
+
     if (fileInput.files.length > 0) {
         const file = fileInput.files[0];
-        const reader = new FileReader();
         
         // Basic Metadata
+        statusbar("Loading Basic Metadata", 0.3);
         document.getElementById("filename").innerText = fileInput.value.split("\\")[fileInput.value.split("\\").length-1];
 
         // Load Format Info
+        statusbar("Loading Format Infomation", 0.4);
         const fileformat = fileInput.value.split("\\")[fileInput.value.split("\\").length-1].split(".")[fileInput.value.split("\\")[fileInput.value.split("\\").length-1].split(".").length-1].toUpperCase()
         console.log(fileformat)
-        if (validformats.includes(fileformat)) {
+        if (browserformats.includes(fileformat)) {
             updateformatcolor(fileformat)
             updateformatlogo(fileformat)
 
             document.getElementById("formatname").innerText = fileformat;
             document.getElementById("mimetype").innerText = file.type;
             document.getElementById("compmethod").innerText = compmethods[fileformat];
+
+            // Load Image
+            statusbar("Loading Image", 0.8);
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    document.getElementById("imagew").innerText = img.naturalWidth;
+                    document.getElementById("imageh").innerText = img.naturalHeight;
+                    
+                    canvas.width = img.naturalWidth;
+                    canvas.height = img.naturalHeight;
+                    
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    
+                    //// Calculate color depth
+                    //const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    //const pixelData = imageData.data;
+                    //const colorDepthActual = pixelData.length * (8 / (canvas.width * canvas.height));
+                    //console.log('Actual color depth in bits per pixel:', colorDepthActual);
+                }
+                img.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        } else if (fileformat == "HEIC") {
+            statusbar("Processing HEIC Image", 0.6);
+            console.log("HEIC processing");
+
+            var convertedImage = "";
+
+            // Convert Image
+            const blob = new Blob([file], { type: file.type });
+            heic2any({
+                blob
+            })
+            .then((conversionResult) => {
+                var url = URL.createObjectURL(conversionResult);
+                convertedImage = new Blob([conversionResult], { type: conversionResult.type });
+
+                updateformatcolor(fileformat)
+                updateformatlogo(fileformat)
+
+                document.getElementById("formatname").innerText = fileformat;
+                document.getElementById("mimetype").innerText = "image/heic";
+                document.getElementById("compmethod").innerText = compmethods[fileformat];
+
+                // Load Image
+                statusbar("Loading Image", 0.8);
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        document.getElementById("imagew").innerText = img.naturalWidth;
+                        document.getElementById("imageh").innerText = img.naturalHeight;
+                        
+                        canvas.width = img.naturalWidth;
+                        canvas.height = img.naturalHeight;
+                        
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        
+                        //// Calculate color depth
+                        //const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                        //const pixelData = imageData.data;
+                        //const colorDepthActual = pixelData.length * (8 / (canvas.width * canvas.height));
+                        //console.log('Actual color depth in bits per pixel:', colorDepthActual);
+                    }
+                    img.src = e.target.result;
+                }
+                console.log(convertedImage);
+                reader.readAsDataURL(convertedImage);
+            })
         } else {
+            updateformatcolor(null);
+            updateformatlogo(null);
+            document.getElementById("imagew").innerText = "";
+            document.getElementById("imageh").innerText = "";
             document.getElementById("formatname").innerText = "---";
             document.getElementById("mimetype").innerText = "---";
             document.getElementById("compmethod").innerText = "---";
-            alert('Invalid format.');
+            statusbar("INVALID FORMAT", 1.0, bcolor = "red");
         }
-
-        // Load Image
-        reader.onload = function(e) {
-            const img = new Image();
-            img.onload = function() {
-                document.getElementById("imagew").innerText = img.naturalWidth;
-                document.getElementById("imageh").innerText = img.naturalHeight;
-                
-                canvas.width = img.naturalWidth;
-                canvas.height = img.naturalHeight;
-                
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                
-                //// Calculate color depth
-                //const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                //const pixelData = imageData.data;
-                //const colorDepthActual = pixelData.length * (8 / (canvas.width * canvas.height));
-                //console.log('Actual color depth in bits per pixel:', colorDepthActual);
-            }
-            img.src = e.target.result;
-        }
-        reader.readAsDataURL(file);
     } else {
         alert('Please upload an image file.');
     }
@@ -115,4 +197,9 @@ document.getElementById('image').addEventListener("mouseover", () => {
 
 document.getElementById('image').addEventListener("mouseout", () => {
     document.getElementById("formatlogo").classList.add("hide")
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    canvas.width = 800;
+    canvas.height = 400;
 });
