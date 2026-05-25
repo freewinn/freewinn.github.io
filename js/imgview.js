@@ -8,8 +8,8 @@ const fileInput = document.getElementById('imageUploader');
 const canvas = document.getElementById('image');
 const ctx = canvas.getContext('2d');
 
-const validformats = ["PNG", "JPG", "GIF", "WEBP", "BMP", "ICO", "HEIC"];
-const browserformats = ["PNG", "JPG", "GIF", "WEBP", "BMP", "ICO"];
+const validformats = ["PNG", "JPG", "GIF", "WEBP", "BMP", "ICO", "AVIF", "HEIC"];
+const browserformats = ["PNG", "JPG", "GIF", "WEBP", "BMP", "ICO", "AVIF"];
 const formatcolors = {
     "PNG": "#164a6e",
     "JPG": "#444d52",
@@ -17,6 +17,7 @@ const formatcolors = {
     "WEBP": "#396311",
     "BMP": "#943f40",
     "ICO": "#4e2b9d",
+    "AVIF": "#811840",
     "HEIC": "#782982",
 };
 const formatlogos = {
@@ -26,6 +27,7 @@ const formatlogos = {
     "WEBP": "/content/IF_WEBP_S.png",
     "BMP": "/content/IF_BMP_S.png",
     "ICO": "/content/IF_ICO_S.png",
+    "AVIF": "/content/IF_AVIF_S.png",
     "HEIC": "/content/IF_HEIC_S.png",
 };
 const compmethods = {
@@ -35,6 +37,7 @@ const compmethods = {
     "WEBP": "Unknown (Lossy or Lossless)",
     "BMP": "Lossless (RLE)",
     "ICO": "Lossless (BMP or PNG)",
+    "AVIF": "Unknown (Lossy or Lossless)",
     "HEIC": "Unknown (Lossy or Lossless)",
 };
 
