@@ -11,6 +11,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/css/imgview.css">
         <script src="/js/heic2any.js"></script>
+        <script src="/js/exifr.js"></script>
     </head>
     <body>
         <a class="logo" href="/">
@@ -46,6 +47,13 @@
                 <td id="compmethod" class="formatborder">---</td>
             </tr>
         </table>
+        <br>
+        <div id="brandmodel" class="brandmodel hidden">
+            <img id="brandlogo" src="">
+            <p id="model"></p>
+        </div>
+        <p id="brandcopyright" class="copyright hidden">All logos and trademarks are the property of their respective owners.</p>
+        <br>
         <p class="imager">Image Resolution: <span id="imagew"></span>x<span id="imageh"></span></p>
         <div class="contact">
             <p class="contacttext">Have a tool you want created, or feedback on in development tools? <b>Email me!</b></p>

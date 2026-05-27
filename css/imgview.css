@@ -142,6 +142,34 @@ span {
   font-weight: 900;
 }
 
+.brandmodel {
+  display: block;
+  max-width: 600px;
+  width: fit-content;
+  height: 100px;
+  margin: auto;
+  border: solid 1px white;
+}
+
+#brandlogo {
+  display: block;
+  padding: 0 10px;
+  border-right: dashed 1px white;
+  float: left;
+  height: 99%;
+}
+
+#model {
+  display: block;
+  height: 100%;
+  float: right;
+  padding: 0 10px;
+  color:white;
+  margin: auto;
+  font-size: 20px;
+  line-height: 100px;
+}
+
 .contact {
   border: 2px dashed #d5c818;
   width: 300px;
@@ -176,6 +204,14 @@ b {
   color: gray;
   text-align: center;
   font-weight: 300;
+}
+
+#brandcopyright {
+  font-size: 8px;
+}
+
+.hidden {
+  display: none;
 }
 
 .hide {

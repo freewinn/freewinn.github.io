@@ -41,6 +41,22 @@ const compmethods = {
     "HEIC": "Unknown (Lossy or Lossless)",
 };
 
+const supportedmakes = ["FUJIFILM", "SAMSUNG", "APPLE", "SONY", "MOTOROLA", "CANON", "NIKON CORPORATION", "GOPRO", "POLAROID", "PANASONIC", "OLYMPUS DIGITAL CAMERA", "OLYMPUS IMAGING CORP."];
+const brandlogos = {
+    "FUJIFILM": "/content/CC_Fujifilm.png",
+    "SAMSUNG": "/content/CC_Samsung.png",
+    "APPLE": "/content/CC_Apple.png",
+    "SONY": "/content/CC_Sony.png",
+    "MOTOROLA": "/content/CC_Motorola.png",
+    "CANON": "/content/CC_Canon.png",
+    "NIKON CORPORATION": "/content/CC_Nikon.png",
+    "GOPRO": "/content/CC_GoPro.png",
+    "POLAROID": "/content/CC_Polaroid.png",
+    "PANASONIC": "/content/CC_Panasonic.png",
+    "OLYMPUS DIGITAL CAMERA": "/content/CC_Olympus.png",
+    "OLYMPUS IMAGING CORP.": "/content/CC_Olympus.png",
+};
+
 const formatborders = document.getElementsByClassName("formatborder")
 
 // Functions
@@ -84,6 +100,37 @@ function updateformatlogo(format) {
     }
 }
 
+function processexifdata(output) {
+    console.log(output)
+    updatebandmodel(output);
+}
+
+function updatebandmodel(exifdata) {
+    if (exifdata != null) {
+        const brand = exifdata["Make"].toUpperCase()
+        const model = exifdata["Model"]
+        if (supportedmakes.includes(brand)) {
+            var bl = brandlogos[brand]
+
+            document.getElementById("brandlogo").src = bl;
+            document.getElementById("model").innerText = model;
+            document.getElementById("brandmodel").classList.remove("hidden");
+            document.getElementById("brandcopyright").classList.remove("hidden");
+        } else {
+            document.getElementById("formatlogo").src = "";
+            document.getElementById("model").innerText = "";
+            document.getElementById("brandmodel").classList.add("hidden");
+            document.getElementById("brandcopyright").classList.add("hidden");
+        }
+    } else {
+        document.getElementById("formatlogo").src = "";
+        document.getElementById("model").innerText = "";
+        document.getElementById("brandmodel").classList.add("hidden");
+        document.getElementById("brandcopyright").classList.add("hidden");
+    }
+    
+}
+
 // Events
 fileInput.addEventListener('change', () => {
     statusbar("Uploading Image", 0.2);
@@ -94,6 +141,9 @@ fileInput.addEventListener('change', () => {
         // Basic Metadata
         statusbar("Loading Basic Metadata", 0.3);
         document.getElementById("filename").innerText = fileInput.value.split("\\")[fileInput.value.split("\\").length-1];
+
+        exifr.parse(file)
+        .then(output => processexifdata(output))
 
         // Load Format Info
         statusbar("Loading Format Infomation", 0.4);
@@ -121,12 +171,6 @@ fileInput.addEventListener('change', () => {
                     
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                    
-                    //// Calculate color depth
-                    //const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                    //const pixelData = imageData.data;
-                    //const colorDepthActual = pixelData.length * (8 / (canvas.width * canvas.height));
-                    //console.log('Actual color depth in bits per pixel:', colorDepthActual);
                 }
                 img.src = e.target.result;
             }
@@ -167,16 +211,9 @@ fileInput.addEventListener('change', () => {
                         
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
                         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                        
-                        //// Calculate color depth
-                        //const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                        //const pixelData = imageData.data;
-                        //const colorDepthActual = pixelData.length * (8 / (canvas.width * canvas.height));
-                        //console.log('Actual color depth in bits per pixel:', colorDepthActual);
                     }
                     img.src = e.target.result;
                 }
-                console.log(convertedImage);
                 reader.readAsDataURL(convertedImage);
             })
         } else {
