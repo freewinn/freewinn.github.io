@@ -93,7 +93,6 @@ function updateformatcolor(format) {
 function updateformatlogo(format) {
     if (format) {
         var fl = formatlogos[format]
-
         document.getElementById("formatlogo").src = fl;
     } else {
         document.getElementById("formatlogo").src = "";
@@ -117,13 +116,13 @@ function updatebandmodel(exifdata) {
             document.getElementById("brandmodel").classList.remove("hidden");
             document.getElementById("brandcopyright").classList.remove("hidden");
         } else {
-            document.getElementById("formatlogo").src = "";
+            document.getElementById("brandlogo").src = "";
             document.getElementById("model").innerText = "";
             document.getElementById("brandmodel").classList.add("hidden");
             document.getElementById("brandcopyright").classList.add("hidden");
         }
     } else {
-        document.getElementById("formatlogo").src = "";
+        document.getElementById("brandlogo").src = "";
         document.getElementById("model").innerText = "";
         document.getElementById("brandmodel").classList.add("hidden");
         document.getElementById("brandcopyright").classList.add("hidden");
@@ -142,6 +141,7 @@ fileInput.addEventListener('change', () => {
         statusbar("Loading Basic Metadata", 0.3);
         document.getElementById("filename").innerText = fileInput.value.split("\\")[fileInput.value.split("\\").length-1];
 
+        statusbar("Loading EXIF Metadata", 0.35);
         exifr.parse(file)
         .then(output => processexifdata(output))
 
