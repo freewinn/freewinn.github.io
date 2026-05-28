@@ -93,8 +93,10 @@ function updateformatcolor(format) {
 function updateformatlogo(format) {
     if (format) {
         var fl = formatlogos[format]
+        document.getElementById("formatlogo").alt = "-> "+format;
         document.getElementById("formatlogo").src = fl;
     } else {
+        document.getElementById("formatlogo").alt = "";
         document.getElementById("formatlogo").src = "";
     }
 }
@@ -112,17 +114,20 @@ function updatebandmodel(exifdata) {
             var bl = brandlogos[brand]
 
             document.getElementById("brandlogo").src = bl;
+            document.getElementById("brandlogo").alt = brand;
             document.getElementById("model").innerText = model;
             document.getElementById("brandmodel").classList.remove("hidden");
             document.getElementById("brandcopyright").classList.remove("hidden");
         } else {
             document.getElementById("brandlogo").src = "";
+            document.getElementById("brandlogo").alt = "";
             document.getElementById("model").innerText = "";
             document.getElementById("brandmodel").classList.add("hidden");
             document.getElementById("brandcopyright").classList.add("hidden");
         }
     } else {
         document.getElementById("brandlogo").src = "";
+        document.getElementById("brandlogo").alt = "";
         document.getElementById("model").innerText = "";
         document.getElementById("brandmodel").classList.add("hidden");
         document.getElementById("brandcopyright").classList.add("hidden");
