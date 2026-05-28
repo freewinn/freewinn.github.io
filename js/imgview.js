@@ -4,6 +4,7 @@
 
 
 // Variables
+
 const fileInput = document.getElementById('imageUploader');
 const canvas = document.getElementById('image');
 const ctx = canvas.getContext('2d');
@@ -136,6 +137,7 @@ function updatebandmodel(exifdata) {
 }
 
 // Events
+
 fileInput.addEventListener('change', () => {
     statusbar("Uploading Image", 0.2);
 

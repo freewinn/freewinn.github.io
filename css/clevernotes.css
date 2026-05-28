@@ -8,9 +8,14 @@ body {
   src: url("/content/Freestyle Script Plain.otf");
 }
 
+@font-face {
+  font-family: Cursive;
+  src: url("/content/EduNSWACTCursive-Medium.ttf");
+}
+
 h1 {
   color:white;
-  font-family: Freestyle; /* use font */
+  font-family: Freestyle;
   font-size: 70px;
   font-weight: 900;
   margin: 0;
@@ -51,6 +56,69 @@ h4 {
   margin-bottom: 8px;
   padding: 0;
   text-align: center;
+}
+
+.noteback {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+}
+
+.notehead {
+  width: 100%;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  color: black;
+  text-align: center;
+  font-family: Cursive;
+  font-size: 14px;
+}
+
+.notebody {
+  width: 100%;
+  height: 80px;
+  margin: 0;
+  padding: 0;
+  color: black;
+  text-align: center;
+  font-family: Cursive;
+  font-size: 13px;
+}
+
+.orangeback {
+  background-image: linear-gradient(to bottom right, #f99823, #b86c10);;
+}
+.orangehead {
+  background-color: #e8810a;
+}
+
+.greenback {
+  background-image: linear-gradient(to bottom right, #7cf923, #5eca11);;
+}
+.greenhead {
+  background-color: #64dd0d;
+}
+
+.blueback {
+  background-image: linear-gradient(to bottom right, #23dcf9, #0b9bb1);;
+}
+.bluehead {
+  background-color: #12cbe8;
+}
+
+.yellowback {
+  background-image: linear-gradient(to bottom right, #d5f923, #a5c40e);;
+}
+.yellowhead {
+  background-color: #accb11;
+}
+
+.purpleback {
+  background-image: linear-gradient(to bottom right, #a723f9, #7b0ebe);;
+}
+.purplehead {
+  background-color: #8711d0;
 }
 
 .contact {
