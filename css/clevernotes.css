@@ -1,0 +1,103 @@
+body {
+    background-color: black;
+    font-family: monospace;
+}
+
+@font-face {
+  font-family: Freestyle;
+  src: url("/content/Freestyle Script Plain.otf");
+}
+
+h1 {
+  color:white;
+  font-family: Freestyle; /* use font */
+  font-size: 70px;
+  font-weight: 900;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+h2 {
+  position: relative;
+  bottom: 17px;
+  color: lightgray;
+  font-size: 20px;
+  font-weight: 900;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.logo {
+  text-decoration: none;
+}
+
+h3 {
+  color: #ad11f0;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+  margin-top: 3%;
+  padding: 0;
+  text-align: center;
+}
+
+h4 {
+  color: #929292;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 8px;
+  padding: 0;
+  text-align: center;
+}
+
+.contact {
+  border: 2px dashed #d5c818;
+  width: 300px;
+  margin: 20px auto;
+  padding: 14px;
+}
+
+.contacttext {
+  color: white;
+  text-align: center;
+  margin: 0;
+  font-weight: 300;
+}
+
+b {
+  color: #c61ae4;
+  font-weight: 900;
+}
+
+.email {
+  display: block;
+  color: #1ae4e1;
+  text-align: center;
+  width: 100%;
+}
+
+.email:visited {
+  color: #1a9de4;
+}
+
+.copyright {
+  color: gray;
+  text-align: center;
+  font-weight: 300;
+}
+
+.wip {
+  color: white;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.hide {
+  opacity: 0;
+}
