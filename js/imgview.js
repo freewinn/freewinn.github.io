@@ -6,6 +6,7 @@
 // Variables
 
 const fileInput = document.getElementById('imageUploader');
+const URLSelect = document.getElementById('URLButton');
 const canvas = document.getElementById('image');
 const ctx = canvas.getContext('2d');
 
@@ -136,17 +137,35 @@ function updatebandmodel(exifdata) {
     
 }
 
-// Events
+function processinput(input) {
+    if (input == "upload") {
+        const file = fileInput.files[0];
+        ImgView(file);
+    } else {
+        fetch(input)
+        .then(response => {
+            console.log(response);
+            response.blob().then(blob => {
+                console.log(blob)
+                const originalName = response.url.split('/')[response.url.split('/').length - 1];
+                const file = new File([blob], originalName, { type: blob.type });
+                console.log(file);
+                ImgView(file);
+            });
+        })
+        .catch(error => console.log('Error fetching image:', error));
+    }
+}
 
-fileInput.addEventListener('change', () => {
+// ImgView Function
+
+function ImgView(file) {
     statusbar("Uploading Image", 0.2);
 
-    if (fileInput.files.length > 0) {
-        const file = fileInput.files[0];
-        
+    if (true) { //(fileInput.files.length > 0) {
         // Basic Metadata
         statusbar("Loading Basic Metadata", 0.3);
-        document.getElementById("filename").innerText = fileInput.value.split("\\")[fileInput.value.split("\\").length-1];
+        document.getElementById("filename").innerText = file.name; //fileInput.value.split("\\")[fileInput.value.split("\\").length-1];
 
         statusbar("Loading EXIF Metadata", 0.35);
         exifr.parse(file)
@@ -154,7 +173,7 @@ fileInput.addEventListener('change', () => {
 
         // Load Format Info
         statusbar("Loading Format Infomation", 0.4);
-        const fileformat = fileInput.value.split("\\")[fileInput.value.split("\\").length-1].split(".")[fileInput.value.split("\\")[fileInput.value.split("\\").length-1].split(".").length-1].toUpperCase()
+        const fileformat = file.name.split(".")[file.name.split(".").length - 1].toUpperCase(); //fileInput.value.split("\\")[fileInput.value.split("\\").length-1].split(".")[fileInput.value.split("\\")[fileInput.value.split("\\").length-1].split(".").length-1].toUpperCase()
         console.log(fileformat)
         if (browserformats.includes(fileformat)) {
             updateformatcolor(fileformat)
@@ -236,6 +255,17 @@ fileInput.addEventListener('change', () => {
     } else {
         alert('Please upload an image file.');
     }
+}
+
+// Events
+
+fileInput.addEventListener('change', () => {
+    processinput("upload");
+});
+
+URLSelect.addEventListener('click', () => {
+    var URL = prompt("Enter a Image URL:", "/content/ImgViewExample.JPG");
+    processinput(URL);
 });
 
 document.getElementById('image').addEventListener("mouseover", () => {
